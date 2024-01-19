@@ -49,7 +49,7 @@ jobs:
           sudo apt-get install -f -y
 
       - name: List electron-fuses
-        run: python3 test.py /usr/share/discord/Discord
+        run: python3 resources/test.py /usr/share/discord/Discord
 
       - name: Upload Wheel Package
         uses: actions/upload-artifact@v2
