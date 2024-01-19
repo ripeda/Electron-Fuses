@@ -3,6 +3,13 @@
 Python-implementation of Electron's [fuses module](https://github.com/electron/fuses), intended for querying fuse states of an Electron binary.
 
 
+## Installation
+
+```bash
+python3 -m pip install electron-fuses
+```
+
+
 ## Usage
 
 ```py
@@ -24,3 +31,13 @@ Python-implementation of Electron's [fuses module](https://github.com/electron/f
 
    FuseState.DISABLE
 ```
+
+If searching a macOS executable, the .app or entry point (under `Contents/MacOS`) can be provided to `electron_fuses.ResolveFramework()` to determine the path to the Electron Framework for fuse parsing:
+
+```py
+>>> from electron_fuses import ResolveFramework
+>>> framework_path = ResolveFramework("1Password.app").framework_path()
+>>> print(framework_path)
+"1Password.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework"
+```
+
