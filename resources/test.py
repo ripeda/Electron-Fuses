@@ -1,14 +1,15 @@
+"""
+Simple CI test to check if the module is working.
+"""
 
 import sys
 import electron_fuses
 
 
-def main(electron_binary: str = sys.argv[1]):
+def main(electron_binary: str):
     obj = electron_fuses.FuseConfig(electron_binary)
     print(obj)
 
-    # Find value of RUN_AS_NODE
-    print(obj.config[electron_fuses.FuseV1Options.RUN_AS_NODE])
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])
