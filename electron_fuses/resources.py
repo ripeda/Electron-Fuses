@@ -6,7 +6,7 @@ import enum
 
 
 # https://github.com/electron/fuses/blob/v1.7.0/src/constants.ts#L1
-SENTINEL: str = 'dL7pKGdnNz796PbbjQWNKmHXBZaB9tsX'
+SENTINEL: str = "dL7pKGdnNz796PbbjQWNKmHXBZaB9tsX"
 
 
 # https://github.com/electron/fuses/blob/v1.7.0/src/constants.ts#L3-L8

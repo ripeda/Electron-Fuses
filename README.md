@@ -1,6 +1,7 @@
 # Electron Fuses
 
-Python-implementation of Electron's [fuses module](https://github.com/electron/fuses).
+Python-implementation of Electron's [fuses module](https://github.com/electron/fuses), intended for querying fuse states of an Electron binary.
+
 
 ## Usage
 

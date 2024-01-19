@@ -1,0 +1,74 @@
+name: CI - Build wheel
+
+on:
+  push:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: CI - Build wheel
+    runs-on: ubuntu-latest
+    env:
+      branch: ${{ github.ref }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Set up Python 3 development tools
+        run: pip3 install setuptools wheel twine build
+
+      - name: Validate setup.py
+        run: python3 setup.py check -m -s
+
+      - name: Build Package (py3)
+        run: python3 -m build --wheel
+
+      - name: Test Package (py3)
+        run: python3 setup.py test
+
+      - name: Validate twine
+        run: twine check dist/*
+
+      - name: Install Package
+        run: pip3 install dist/*.whl
+
+      - name: Install Electron App (Discord)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgconf-2-4
+          wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
+          sudo dpkg -i discord.deb
+          sudo apt-get install -f -y
+
+      - name: List electron-fuses
+        run: python3 test.py /usr/share/discord/Discord
+
+      - name: Upload Wheel Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: electron_fuses.whl
+          path: dist/*.whl
+
+      - name: Upload Package to Release
+        if: github.event_name == 'release'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/*
+          tag: ${{ github.ref }}
+          file_glob: true
+
+      - name: Publish PyPI Package
+        if: github.event_name == 'release'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.ORG_PYPI_PASSWORD }}
+        run: twine upload dist/*
