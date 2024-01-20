@@ -3,7 +3,7 @@ config.py: Fuse configuration
 """
 
 
-from .resources import SENTINEL, FuseState, FuseV1Options
+from .resources import SENTINEL, FuseState, FuseV1Options, SentinelNotFound
 
 
 class FuseConfig:
@@ -26,7 +26,7 @@ class FuseConfig:
 
         fuse_wire_position = binary_contents.find(SENTINEL.encode("utf-8")) + len(SENTINEL)
         if fuse_wire_position - len(SENTINEL) == -1:
-            raise Exception("Could not find sentinel")
+            raise SentinelNotFound("Could not find sentinel")
 
         fuse_wire_length = binary_contents[fuse_wire_position + 1]
 

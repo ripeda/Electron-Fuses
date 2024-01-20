@@ -27,3 +27,7 @@ class FuseV1Options(enum.Enum):
     ONLY_LOAD_APP_FROM_ASAR:                   int = 0x05
     LOAD_BROWSER_PROCESS_SPECIFIC_V8_SNAPSHOT: int = 0x06
     GRANT_FILE_PROTOCOL_EXTRA_PRIVILEGES:      int = 0x07
+
+
+class SentinelNotFound(Exception):
+    pass
