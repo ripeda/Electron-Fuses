@@ -14,19 +14,6 @@ class ResolveFramework:
         self._executable = Path(executable)
 
 
-    def framework(self) -> str:
-        """
-        Resolve the Electron framework from the executable
-        """
-        if self._executable.suffix == ".exe":
-            return self._executable
-
-        if self._executable.suffix == ".app" and self._executable.is_dir():
-            return self._resolve_app()
-
-        return self._resolve_executable()
-
-
     def _resolve_app(self) -> str:
         """
         Resolve the Electron framework from the application
@@ -57,3 +44,17 @@ class ResolveFramework:
             return str(path.resolve())
 
         raise FileNotFoundError("Could not find Electron framework")
+
+
+    @property
+    def framework(self) -> str:
+        """
+        Resolve the Electron framework from the executable
+        """
+        if self._executable.suffix == ".exe":
+            return self._executable
+
+        if self._executable.suffix == ".app" and self._executable.is_dir():
+            return self._resolve_app()
+
+        return self._resolve_executable()
