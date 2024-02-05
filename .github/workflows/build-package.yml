@@ -25,6 +25,9 @@ jobs:
       - name: Set up Python 3 development tools
         run: pip3 install setuptools wheel twine build
 
+      - name: Set up dependencies
+        run: pip3 install -r requirements.txt
+
       - name: Validate setup.py
         run: python3 setup.py check -m -s
 
