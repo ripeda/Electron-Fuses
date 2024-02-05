@@ -36,8 +36,7 @@ If searching a macOS executable, the .app or entry point (under `Contents/MacOS`
 
 ```py
 >>> from electron_fuses import ResolveFramework
->>> framework_path = ResolveFramework("1Password.app").framework_path()
->>> print(framework_path)
+>>> print(ResolveFramework("1Password.app").framework)
 "1Password.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework"
 ```
 
