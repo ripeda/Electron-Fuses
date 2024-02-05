@@ -41,3 +41,16 @@ If searching a macOS executable, the .app or entry point (under `Contents/MacOS`
 "1Password.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework"
 ```
 
+Additionally can detect Electron and Chromium versions:
+
+* Partially supports nwjs-based applications for Chromium version detection
+
+```py
+>>> from electron_fuses import ElectronVersion
+>>> print(ElectronVersion("path/to/electron").chromium_version)
+"118.0.5993.144"
+>>> print(ElectronVersion("path/to/electron").electron_version)
+"27.1.0"
+>>> print(ElectronVersion("path/to/electron").electron_release_date)
+"2023-11-15T19:00:32Z"
+```

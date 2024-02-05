@@ -10,3 +10,4 @@ __author_email__: str = "info@ripeda.com"
 from .config    import FuseConfig
 from .resources import FuseState, FuseV1Options, SentinelNotFound
 from .resolve   import ResolveFramework
+from .version   import ElectronVersion

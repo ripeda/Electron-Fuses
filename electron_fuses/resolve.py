@@ -6,6 +6,7 @@ Primarily intended for macOS where applications' entry point is separate from El
 
 
 from pathlib import Path
+from functools import cached_property
 
 
 class ResolveFramework:
@@ -46,7 +47,7 @@ class ResolveFramework:
         raise FileNotFoundError("Could not find Electron framework")
 
 
-    @property
+    @cached_property
     def framework(self) -> str:
         """
         Resolve the Electron framework from the executable
