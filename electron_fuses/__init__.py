@@ -2,7 +2,7 @@
 __init__.py: electron-fuses package
 """
 
-__version__:      str = "1.3.0"
+__version__:      str = "1.4.0"
 __author__:       str = "RIPEDA Consulting"
 __license__:      str = "3-clause BSD License"
 __author_email__: str = "info@ripeda.com"

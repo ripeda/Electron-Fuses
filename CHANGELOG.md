@@ -1,5 +1,7 @@
 # Electron Fuses
 
+## 1.4.0
+
 ## 1.3.0
 - Add support for Electron and Chromium version detection
 - Add support for Electron release date detection
