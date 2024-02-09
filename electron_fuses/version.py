@@ -4,6 +4,7 @@ version.py: Electron version detection
 
 import bs4
 import requests
+import packaging.version
 
 from pathlib import Path
 from functools import cached_property
@@ -37,31 +38,38 @@ class ElectronVersion:
         """
         Fetch the version from the binary
         """
-        version = ""
 
         binary_contents = open(self._file, "rb").read()
-        if string.encode("utf-8") not in binary_contents:
+
+        position = binary_contents.find(string.encode("utf-8"))
+        if position == -1:
             return "N/A"
 
-        # If the value is '%', then ignore and search past it
-        position = binary_contents.find(string.encode("utf-8"))
         while True:
-            if chr(binary_contents[position + len(string)]) in "0123456789":
-                break
-            # Search for null byte before continuing
-            while binary_contents[position] != 0:
+            if chr(binary_contents[position + len(string)]) in "123456789":
+                # Avoid overwriting position if found to be invalid
+                version_position = position + len(string)
+                version = ""
+
+                # Checking for integers or period will cause false positives
+                while binary_contents[version_position] not in [0, 32]:
+                    version += chr(binary_contents[version_position])
+                    version_position += 1
+
+                version = version.strip()
+
+                try:
+                    packaging.version.parse(version)
+                    return version
+                except packaging.version.InvalidVersion:
+                    pass
+
+            # Search for null byte/space before continuing
+            while binary_contents[position] not in [0, 32]:
                 position += 1
             position = binary_contents.find(string.encode("utf-8"), position)
-
-        position += len(string)
-        while binary_contents[position] != 0:
-            version += chr(binary_contents[position])
-            position += 1
-
-        if version == "":
-            return "N/A"
-
-        return version.strip()
+            if position == -1:
+                return "N/A"
 
 
     def _nwjs_version_detection(self) -> str:

@@ -1,6 +1,9 @@
 # Electron Fuses
 
 ## 1.4.0
+- Resolve infinite loop when valid Electron string is not found
+- Add additional error handling for faulty version strings
+  - Resolves issue where non-ascii characters would be returned
 
 ## 1.3.0
 - Add support for Electron and Chromium version detection
