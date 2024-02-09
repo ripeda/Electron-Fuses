@@ -1,5 +1,7 @@
 # Electron Fuses
 
+## 1.5.0
+
 ## 1.4.0
 - Resolve infinite loop when valid Electron string is not found
 - Add additional error handling for faulty version strings
